@@ -1,0 +1,78 @@
+//Step 7 Theme your block
+
+// I for got to theme the block before we added config options
+
+//edit src/plugins/block/HelloWorld.php
+<?php
+/**
+ * @file
+ * A Custom Hellow World block
+ */
+namespace Drupal\dsgf\Plugin\Block;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Block\BlockBase;
+/**
+ * Hello World Block
+ *
+ * @Block(
+ *  id = "hello_world",
+ *  admin_label = @Translation("Hello World"),
+ *  category = @Translation("Blocks")
+ * )
+ */
+class HelloWorld extends BlockBase{
+  public function defaultConfiguration(){
+    return ['enabled' => 1];
+  }
+  public function blockForm($form, FormStateInterface $form_state){
+    $form['enabled'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Hello enabled'),
+      '#default_value' => $this->configuration['enabled'],
+    ];
+    return $form;
+  }
+  public function blockSubmit($form, FormStateInterface $form_state){
+    $this->configuration['enabled']=(bool)$form_state->getValue('enabled');
+  }
+  public function build(){
+    if ($this->configuration['enabled']){
+      $message="Yes its the hello World Block and we are enabled";
+    }else{
+      $message="Hello World Block Test";
+    }
+    return array(
+      '#message' => $message,
+      '#theme' => 'hello_block',
+    );
+  }
+}
+
+// Add in the hook_theme options to dsgf.module
+<?php
+/**
+ * * @file
+ * Code for dsgf module
+ */
+function dsgf_theme(){
+  $theme['hello_page']=[
+    'variables' => ['message' => NULL,'from' => NULL, 'to'=>NULL],
+    'template' => 'hello_page',
+  ];
+  $theme['hello_block']=[
+    'variables' => ['message' => NULL],
+    'template' => 'hello_block',
+  ];
+  return $theme;
+}
+
+//create templates/hello_block.html.twig
+<section>
+    {% trans %}
+    <h3> {{ message }}</h3>
+    {% endtrans %}
+</section>
+
+
+
+

@@ -1,0 +1,39 @@
+// Step 3 Create a theme template
+
+// Edit src/Controller/dsgfController.php
+
+
+namespace Drupal\dsgf\Controller;
+use Drupal\Core\Controller\ControllerBase;
+class dsgfController extends ControllerBase{
+  public function helloworld(){
+    $message=$this->t("Hello World I am here");
+    return [
+      '#theme' => 'hello_page',
+      '#message' => $message,
+    ];
+  }
+}
+
+//Create templates folder
+
+//Create templates/hello_page.html.twig
+
+<section>
+    {% trans %}
+    <p><strong>What is the message??</strong></p>
+    <p>{{ message }}</p>
+    {% endtrans %}
+</section>
+
+//Hook it up with theme hooks
+// Edit dsgf.module and add dsgf_theme hook Note the valriables that are passed into it.
+
+function dsgf_theme(){
+  $theme['hello_page']=[
+    'variables' => ['message' => NULL],
+    'template' => 'hello_page',
+  ];
+  return $theme;
+}
+

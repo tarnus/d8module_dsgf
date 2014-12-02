@@ -1,0 +1,18 @@
+//Step 1 create a module
+
+// Create Directory for DSGF
+
+// Create file dsgf.info.yml
+name: dsgf
+description: dsgf d8 module
+type: module
+core: 8.x
+
+//Create file dsgf.module
+<?php
+/**
+ * * @file
+ * Code for dsgf module
+ */
+
+

@@ -1,0 +1,105 @@
+//Step 8 create a module configuration form for your module
+// Create install settings and schema files
+// create config/intall/dsg.settings.yml
+default_text: 'My default Text'
+
+//Create config/schema/dsgf.settings.yml
+dsgf.settings:
+ type: mapping
+ label: 'DSGF Module Settings'
+ mapping:
+  default_text:
+   type: text
+   label: 'Default hello world  Text'
+
+
+// Create the config form src/Form/ConfigForm.php
+<?php
+namespace Drupal\dsgf\Form;
+use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\FormStateInterface;
+class ConfigForm extends ConfigFormBase {
+  public function getFormId(){
+    return 'dsgf_config';
+  }
+  /**
+   * @param array $form
+   * @param FormStateInterface $form_state
+   * @return array
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $config = $this->config('dsgf.settings');
+    $form['default_text'] = [
+      '#type' => textfield,
+      '#title' => $this->t('Default text'),
+      '#default_value' => $config->get('default_text'),
+    ];
+    return parent::buildForm($form, $form_state);
+  }
+  public function submitForm(array &$form, FormStateInterface $form_state){
+    parent::submitForm($form, $form_state);
+    $config = $this->config('dsgf.settings');
+    $config->set('default_text', $form_state->getValue('default_text'));
+    $config->save();
+  }
+}
+
+// Change controller to use the configuration variables
+<?php
+namespace Drupal\dsgf\Controller;
+use Drupal\Core\Controller\ControllerBase;
+class dsgfController extends ControllerBase{
+  public function helloworld($to, $from){
+    $message = $this->config('dsgf.settings')->get('default_text');
+    //$message=$this->t("Hello World I am here");
+    return [
+      '#theme' => 'hello_page',
+      '#message' => $message,
+      '#to' => $to,
+      '#from' => $from,
+    ];
+  }
+}
+
+
+
+// Finish hooking it all up with routing, permisions and menus
+//edit dsgf.routing.yml file addinf the dsgf.config route note new permission
+
+dsgf.helloworld:
+ path: /hello/{from}/{to}
+ defaults:
+   _content: 'Drupal\dsgf\Controller\dsgfController::helloworld'
+   _title: 'My Hello World'
+   from: ''
+   to: ''
+ requirements:
+  _permission: 'access content'
+dsgf.config:
+ path: /admin/config/system/helloworld
+ defaults:
+  _form: 'Drupal\dsgf\Form\ConfigForm'
+  _title: 'My DSGF Configuration'
+ requirements:
+  _permission: 'configure_dsgf'
+
+ //create permissions  yml file replaces hook_permissions  dsgf.permissions.yml
+
+ configure_dsgf:
+  title: 'Configure the hello world system'
+  description: 'Configure default hellow world text'
+
+// edit dsgf.links.menu.yml file and hook up menu linnks for config
+dsgf.helloworld:
+  title: 'Hello World'
+  parent: system.helloworld
+  description: 'Hello World Menu'
+  route_name: dsgf.helloworld
+  weight: 100
+  #Use menu_name when you want to add your link to a non-system menu.
+  menu_name: main
+dsgf.config:
+ title: 'My Hello World Configuration'
+ description: 'Configure the hello world system'
+ route_name: dsgf.config
+ parent: system.admin_config_system

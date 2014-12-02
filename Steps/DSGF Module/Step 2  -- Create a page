@@ -1,0 +1,40 @@
+//Step 2 Create a page
+// New for drupal 8 oop everywhere.  Extend the class, then hook it up.
+
+//Create a page --  Set up files for PSR4
+
+//Create src folder
+
+//create Controller Folder
+
+// create dsgfController.php
+<?php
+namespace Drupal\dsgf\Controller;
+use Drupal\Core\Controller\ControllerBase;
+class dsgfController extends ControllerBase{
+  public function helloworld(){
+    $message=$this->t("Hello World");
+    return array(
+      '#markup' =>$message,
+    );
+  }
+}
+
+// Hook it up
+
+// create the routing file dsgf.routing.yml
+// yml -- do not use tabs   It is space dependent
+// first line is the module and route
+// _content: hook yoour controller to the route.
+// Set your requirments an permissions -- good to go
+
+dsgf.helloworld:
+ path: /hello
+ defaults:
+   _content: 'Drupal\dsgf\Controller\dsgfController::helloworld'
+   _title: 'My Hello World'
+ requirements:
+  _permission: 'access content'
+
+
+

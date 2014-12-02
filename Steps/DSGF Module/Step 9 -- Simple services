@@ -1,0 +1,38 @@
+//Step 9 simple services
+// Most of the funtions we are used to using from drupal 7 have been moved into the services container
+// Edit dsgfController.php
+<?php
+namespace Drupal\dsgf\Controller;
+use Drupal\Core\Controller\ControllerBase;
+
+class dsgfController extends ControllerBase{
+
+  public function helloworld($to, $from){
+    $message = $this->config('dsgf.settings')->get('default_text');
+    //$message=$this->t("Hello World I am here");
+
+    $account = \Drupal::currentUser();  // another way is \Drupal::service('current_user');
+    $name= $account->getUsername();
+
+
+    // Entity field query
+    $query= \Drupal::entityQuery('node')
+        ->condition('status' , 1);
+    $email = \Drupal::config('system.site')->get('mail');
+    $nids = $query->execute();
+
+    $node = entity_load('node', $nids[1]);
+    $title=$node->title->value;
+    kint($title);  //use of devel module... uses kint instead of dpm
+
+    return [
+      '#theme' => 'hello_page',
+      '#message' => $message,
+      '#to' => $to,
+      '#from' => $from,
+      '#name' => $name,
+      '#mytitle'=>$title,
+    ];
+  }
+
+}
