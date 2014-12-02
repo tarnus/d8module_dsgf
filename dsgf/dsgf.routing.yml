@@ -1,0 +1,7 @@
+dsgf.helloworld:
+ path: /hello
+ defaults:
+   _content: 'Drupal\dsgf\Controller\dsgfController::helloworld'
+   _title: 'My Hello World'
+ requirements:
+  _permission: 'access content'
