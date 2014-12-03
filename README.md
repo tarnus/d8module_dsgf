@@ -16,3 +16,4 @@ Step 7 theme your block
 
 Step 8 Build configuration form page for module
 
+Step 9 use some services (global drupal functions)

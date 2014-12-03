@@ -6,24 +6,20 @@ namespace Drupal\dsgf\Controller;
 use Drupal\Core\Controller\ControllerBase;
 
 class dsgfController extends ControllerBase{
-
   public function helloworld($to, $from){
-    $message = $this->config('dsgf.settings')->get('default_text');
     //$message=$this->t("Hello World I am here");
+    $message = $this->config('dsgf.settings')->get('default_text');
 
     $account = \Drupal::currentUser();  // another way is \Drupal::service('current_user');
     $name= $account->getUsername();
-
-
+    $email = \Drupal::config('system.site')->get('mail');
     // Entity field query
     $query= \Drupal::entityQuery('node')
-        ->condition('status' , 1);
-    $email = \Drupal::config('system.site')->get('mail');
+      ->condition('status' , 1);
     $nids = $query->execute();
-
     $node = entity_load('node', $nids[1]);
     $title=$node->title->value;
-    kint($title);  //use of devel module... uses kint instead of dpm
+    kint($node);  //use of devel module... uses kint instead of dpm
 
     return [
       '#theme' => 'hello_page',
@@ -32,7 +28,32 @@ class dsgfController extends ControllerBase{
       '#from' => $from,
       '#name' => $name,
       '#mytitle'=>$title,
+      '#email'=>$email,
     ];
   }
-
 }
+
+// Add variables to theme in dsgf.module
+function dsgf_theme(){
+  $theme['hello_page']=[
+    'variables' => ['message' => NULL,'from' => NULL, 'to'=>NULL, 'name'=>NULL, 'mytitle'=>NULL,'email'=>NULL],
+    'template' => 'hello_page',
+  ];
+  $theme['hello_block']=[
+    'variables' => ['message' => NULL],
+    'template' => 'hello_block',
+  ];
+  return $theme;
+}
+
+// Modify twig template to add in variablles hello_pahe.html.twig
+
+<section>
+    {% trans %}
+    <h2>{{ mytitle }}</h2>
+    <h3>{{ name }} - {{ email }}</h3>
+    <p><strong>Hey {{ from }}, What is the message??</strong></p>
+    <p>{{ to }} : <stong>{{ message }}</stong> </p>
+    {% endtrans %}
+</section>
+

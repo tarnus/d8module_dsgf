@@ -37,6 +37,7 @@ class HelloWorld extends BlockBase{
     }else{
       $message="Hello World Block Test";
     }
+
     return array(
       '#message' => $message,
       '#theme' => 'hello_block',
