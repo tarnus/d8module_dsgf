@@ -6,4 +6,4 @@ Step 2 Create a page
 
 Step 3 Theme the page
 
-
+Step 4 Pass variables and create a menu link in the main menu

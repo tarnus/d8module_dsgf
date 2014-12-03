@@ -1,0 +1,8 @@
+dsgf.helloworld:
+ title: 'Hello World'
+ parent: system.helloworld
+ description: 'Hello World Menu'
+ route_name: dsgf.helloworld
+ weight: 100
+ #Use menu_name when you want to add your link to a non-system menu.
+ menu_name: main

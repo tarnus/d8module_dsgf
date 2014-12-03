@@ -5,7 +5,7 @@
  */
 function dsgf_theme(){
   $theme['hello_page']=[
-    'variables' => ['message' => NULL],
+    'variables' => ['message' => NULL,'from' => NULL, 'to'=>NULL],
     'template' => 'hello_page',
   ];
   return $theme;
