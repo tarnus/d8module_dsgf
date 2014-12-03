@@ -1,0 +1,3 @@
+services:
+ dsgf.demo_service:
+  class: Drupal\dsgf\DemoService

@@ -17,3 +17,5 @@ Step 7 theme your block
 Step 8 Build configuration form page for module
 
 Step 9 use some services (global drupal functions)
+
+Step 10 create your own service and access via dependency injection  container

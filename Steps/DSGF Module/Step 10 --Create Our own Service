@@ -1,59 +1,91 @@
 // Step 10 Create our own service
-//create file src/dsgfService.php
+//create file src/DemoService.php
 /**
 **  This Service Container is a global object that is created and contained by the Kernel before a request is handled.
 **  It can be used later in code to fetch services, lazy-loaded on the fly. Services are global objects that can be used to fulfil
 **  specific tasks, such as a Mailer service, or a database connector. A service corresponds to exactly one class. The service container
 **  is very important as it contains the available services, knows about their relations and configurations, and even constructs them!
 */
+
+
 <?php
 
 /**
  * @file
- * Contains \Drupal\dsgf\dsgfservice.
+ * Contains Drupal\dsgf\DemoService.
  */
 
 namespace Drupal\dsgf;
 
-class dsgfService {
-  public function getTagline() {
-    return t('My First Service!!');
+class DemoService {
+
+  protected $demo_value;
+
+  public function __construct() {
+    $this->demo_value = 'Upchuk';
   }
+
+  public function getDemoValue() {
+    return $this->demo_value;
+  }
+
 }
+
+
 
 //Create dsgf.services.yml  hook up and register service
 
 services:
-  dsgf.dsgfservice:
-    class: Drupal\dsgf\dsgfService
+ dsgf.demo_service:
+  class: Drupal\dsgf\DemoService
+//You can add the below to your controller to access your sevice
+
+$service = \Drupal::service('dsgf.demo_service');
+
 
 
 // edit controller
 <?php
 namespace Drupal\dsgf\Controller;
 use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class dsgfController extends ControllerBase{
+  protected $demoService;
+  /**
+   * Class constructor.
+   */
+  public function __construct($demoService) {
+    $this->demoService = $demoService;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('dsgf.demo_service')
+    );
+  }
 
   public function helloworld($to, $from){
-    $message = $this->config('dsgf.settings')->get('default_text');
     //$message=$this->t("Hello World I am here");
+    $message = $this->config('dsgf.settings')->get('default_text');
 
     $account = \Drupal::currentUser();  // another way is \Drupal::service('current_user');
     $name= $account->getUsername();
-
-    $query= \Drupal::entityQuery('node')
-        ->condition('status' , 1);
     $email = \Drupal::config('system.site')->get('mail');
+    // Entity field query
+    $query= \Drupal::entityQuery('node')
+      ->condition('status' , 1);
     $nids = $query->execute();
-
     $node = entity_load('node', $nids[1]);
     $title=$node->title->value;
-    kint($title);
+    kint($node);  //use of devel module... uses kint instead of dpm
+    $service = \Drupal::service('dsgf.demo_service');
+    kint($service);
 
-    $dsgfservice = \Drupal::service('dsgf.dsgfservice');
-    $tagline = $dsgfservice->getTagline();
-
+    $demo_service=$this->demoService->getDemoValue();
 
     return [
       '#theme' => 'hello_page',
@@ -62,13 +94,13 @@ class dsgfController extends ControllerBase{
       '#from' => $from,
       '#name' => $name,
       '#mytitle'=>$title,
-      '#tagline'=>$tagline,
+      '#email'=>$email,
+      '#demoservice' => $demo_service,
     ];
   }
-
 }
 
-// Add tagline to hook_theme
+// Add demoservice  to hook_theme
 <?php
 /**
  * * @file
@@ -76,7 +108,7 @@ class dsgfController extends ControllerBase{
  */
 function dsgf_theme(){
   $theme['hello_page']=[
-    'variables' => ['message' => NULL,'from' => NULL, 'to'=>NULL, 'name'=>NULL,'mytitle'=>NULL,'tagline'=>NULL],
+    'variables' => ['message' => NULL,'from' => NULL, 'to'=>NULL, 'name'=>NULL, 'mytitle'=>NULL,'email'=>NULL,'demoservice'=>NULL],
     'template' => 'hello_page',
   ];
   $theme['hello_block']=[
@@ -86,13 +118,15 @@ function dsgf_theme(){
   return $theme;
 }
 
+
 // Add variable to our template file hello_page.html.twig
-<h1>{{ mytitle }}</h1>
-<h2>{{ tagline }}</h2>
 <section>
     {% trans %}
-    <p>Welcome {{ name }},</p>
+    <h2>{{ mytitle }}</h2>
+    <h3>{{ name }} - {{ email }}</h3>
     <p><strong>Hey {{ from }}, What is the message??</strong></p>
     <p>{{ to }} : <stong>{{ message }}</stong> </p>
+
+    <p>DEMOService: {{ demoservice }}</p>
     {% endtrans %}
 </section>
