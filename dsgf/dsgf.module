@@ -3,3 +3,10 @@
  * * @file
  * Code for dsgf module
  */
+function dsgf_theme(){
+  $theme['hello_page']=[
+    'variables' => ['message' => NULL],
+    'template' => 'hello_page',
+  ];
+  return $theme;
+}
