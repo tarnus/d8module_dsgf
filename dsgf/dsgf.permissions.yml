@@ -1,0 +1,3 @@
+ configure_dsgf:
+  title: 'Configure the hello world system'
+  description: 'Configure default hellow world text'

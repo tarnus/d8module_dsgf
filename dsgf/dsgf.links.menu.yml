@@ -6,3 +6,8 @@ dsgf.helloworld:
  weight: 100
  #Use menu_name when you want to add your link to a non-system menu.
  menu_name: main
+dsgf.config:
+ title: 'My Hello World Configuration'
+ description: 'Configure the hello world system'
+ route_name: dsgf.config
+ parent: system.admin_config_system

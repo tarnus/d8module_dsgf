@@ -13,3 +13,6 @@ Step 5 create simple hello world block using plugins
 Step 6 add configuration form item to the block
 
 Step 7 theme your block
+
+Step 8 Build configuration form page for module
+

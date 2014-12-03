@@ -7,3 +7,10 @@ dsgf.helloworld:
    to: ''
  requirements:
   _permission: 'access content'
+dsgf.config:
+ path: /admin/config/system/helloworld
+ defaults:
+  _form: 'Drupal\dsgf\Form\ConfigForm'
+  _title: 'My DSGF Configuration'
+ requirements:
+  _permission: 'configure_dsgf'
