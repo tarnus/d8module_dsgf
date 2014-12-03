@@ -1,0 +1,7 @@
+//Step 11 Use drupal console to generate a block plugin scaffold.
+// Install Drupal Console http://drupalconsole.com
+//  bin/console --shell
+// generate:plugin:block
+//with our service dsgf.demoservice
+
+
