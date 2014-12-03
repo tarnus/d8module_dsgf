@@ -8,5 +8,9 @@ function dsgf_theme(){
     'variables' => ['message' => NULL,'from' => NULL, 'to'=>NULL],
     'template' => 'hello_page',
   ];
+  $theme['hello_block']=[
+    'variables' => ['message' => NULL],
+    'template' => 'hello_block',
+  ];
   return $theme;
 }

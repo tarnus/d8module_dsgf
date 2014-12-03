@@ -38,8 +38,8 @@ class HelloWorld extends BlockBase{
       $message="Hello World Block Test";
     }
     return array(
-      '#type' => 'markup',
-      '#markup' =>$message,
+      '#message' => $message,
+      '#theme' => 'hello_block',
     );
   }
 }
