@@ -10,3 +10,5 @@ Step 4 Pass variables and create a menu link in the main menu
 
 Step 5 create simple hello world block using plugins
 
+Step 6 add configuration form item to the block
+
