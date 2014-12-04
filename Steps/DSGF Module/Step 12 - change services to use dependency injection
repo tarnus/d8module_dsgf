@@ -1,3 +1,25 @@
+// Step 12 change services to use dependency injection
+/**
+Accessing services in objects using dependency injection
+
+Dependency injection is the preferred method for accessing and using services in Drupal 8 and should be used whenever possible.
+Rather than calling out to the global services container, services are instead passed as arguments to a constructor or injected via
+setter methods. Many of the controller and plugin classes provided by modules in core make use of this pattern and serve as a good resource
+for seeing it in action.
+
+The global Drupal class is to be used within global functions. However, Drupal 8's base approach revolves around classes in the form of controllers,
+plugins, and so on. The best practice for these is not to call out to the global service container and instead pass in the required services as
+arguments to a constructor or inject the needed services via service setter methods.
+
+// Symphony definition
+The container makes your life easier, is super fast, and emphasizes an architecture that promotes reusable and decoupled code.
+Since all core Symfony classes use the container, you'll learn how to extend, configure and use any object in Symfony. In large part,
+the service container is the biggest contributor to the speed and extensibility of Symfony.
+
+
+**/
+// edit dsgf controller -- note I used the console generate:controller to build it out for me as far as the service container
+
 <?php
 namespace Drupal\dsgf\Controller;
 use Drupal\Core\Controller\ControllerBase;

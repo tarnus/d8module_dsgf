@@ -21,3 +21,7 @@ Step 9 use some services (global drupal functions)
 Step 10 create your own service and access via dependency injection  container
 
 Step 11 working with drupal console and generate a block
+
+Step 12 change the global service calls from step 10 to use the dependency injection container
+
+ 
