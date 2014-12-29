@@ -1,7 +1,7 @@
 dsgf.helloworld:
  path: /hello/{from}/{to}
  defaults:
-   _content: 'Drupal\dsgf\Controller\dsgfController::helloworld'
+   _controller: 'Drupal\dsgf\Controller\dsgfController::helloworld'
    _title: 'My Hello World'
    from: ''
    to: ''
