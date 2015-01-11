@@ -1,9 +1,16 @@
 dsgf.helloworld:
  path: /hello/{from}/{to}
  defaults:
-   _content: 'Drupal\dsgf\Controller\dsgfController::helloworld'
+   _controller: 'Drupal\dsgf\Controller\dsgfController::helloworld'
    _title: 'My Hello World'
    from: ''
    to: ''
  requirements:
   _permission: 'access content'
+dsgf.config:
+ path: /admin/config/system/helloworld
+ defaults:
+  _form: 'Drupal\dsgf\Form\ConfigForm'
+  _title: 'My DSGF Configuration'
+ requirements:
+  _permission: 'configure_dsgf'

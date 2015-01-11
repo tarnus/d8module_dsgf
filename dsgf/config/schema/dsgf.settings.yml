@@ -1,0 +1,7 @@
+dsgf.settings:
+ type: mapping
+ label: 'DSGF Module Settings'
+ mapping:
+  default_text:
+   type: text
+   label: 'Default hello world  Text'

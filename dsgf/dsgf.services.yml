@@ -1,0 +1,4 @@
+services:
+ dsgf.dsgfservice:
+  class: Drupal\dsgf\dsgfService
+  arguments: ["@http_client", "@state"]
