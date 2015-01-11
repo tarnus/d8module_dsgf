@@ -5,7 +5,11 @@
  */
 function dsgf_theme(){
   $theme['hello_page']=[
+<<<<<<< HEAD
     'variables' => ['message' => NULL,'from' => NULL, 'to'=>NULL, 'name'=>NULL, 'mytitle'=>NULL,'email'=>NULL,'demoservice'=>NULL],
+=======
+    'variables' => ['message' => NULL,'from' => NULL, 'to'=>NULL, 'name'=>NULL, 'mytitle'=>NULL,'email'=>NULL,'tagline'=>NULL],
+>>>>>>> part2
     'template' => 'hello_page',
   ];
   $theme['hello_block']=[

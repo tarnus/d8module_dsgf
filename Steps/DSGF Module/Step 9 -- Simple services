@@ -24,7 +24,7 @@ class dsgfController extends ControllerBase{
     return [
       '#theme' => 'hello_page',
       '#message' => $message,
-      '#to' => $to,
+      '#emai' => $to,
       '#from' => $from,
       '#name' => $name,
       '#mytitle'=>$title,
