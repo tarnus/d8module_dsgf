@@ -1,9 +1,4 @@
 services:
-<<<<<<< HEAD
- dsgf.demo_service:
-  class: Drupal\dsgf\DemoService
-=======
- dsgf.dsgfservice:
+ dsgf.dsgf_service:
   class: Drupal\dsgf\dsgfService
   arguments: ["@http_client", "@state"]
->>>>>>> part2

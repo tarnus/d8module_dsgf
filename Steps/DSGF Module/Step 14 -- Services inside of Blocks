@@ -1,3 +1,5 @@
+//Step 14 Services inside of blocks
+// edit block and add DI for the services we need to use
 <?php
 /**
  * @file
@@ -87,3 +89,30 @@ class HelloWorld extends BlockBase implements ContainerFactoryPluginInterface {
     );
   }
 }
+
+// Add in extra variables for block template
+<?php
+/**
+ * * @file
+ * Code for dsgf module
+ */
+function dsgf_theme(){
+  $theme['hello_page']=[
+    'variables' => ['message' => NULL,'from' => NULL, 'to'=>NULL, 'name'=>NULL, 'mytitle'=>NULL,'email'=>NULL,'tagline'=>NULL],
+    'template' => 'hello_page',
+  ];
+  $theme['hello_block']=[
+    'variables' => ['message' => NULL,'count' => NULL, 'output' => NULL],
+    'template' => 'hello_block',
+  ];
+  return $theme;
+}
+
+// add to twig template hello_block.html.twig
+<section>
+    {% trans %}
+    <h3 class="myblockclass"> {{ message }}</h3>
+    <div class="count">Taglines Generated: {{ count }}</div>
+  <div class="output">{{ output }}</div>
+    {% endtrans %}
+</section>

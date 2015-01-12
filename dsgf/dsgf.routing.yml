@@ -13,8 +13,4 @@ dsgf.config:
   _form: 'Drupal\dsgf\Form\ConfigForm'
   _title: 'My DSGF Configuration'
  requirements:
-<<<<<<< HEAD
-  _permission: 'configure_dsgf' 
-=======
   _permission: 'configure_dsgf'
->>>>>>> part2
