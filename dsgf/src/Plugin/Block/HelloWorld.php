@@ -18,7 +18,7 @@ use Drupal\Core\State\State;
  *  id = "hello_world",
  *  admin_label = @Translation("Hello World"),
  *  category = @Translation("Blocks")
- * )
+ * ) 
  */
 
 class HelloWorld extends BlockBase implements ContainerFactoryPluginInterface {
